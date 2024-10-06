@@ -35,6 +35,11 @@ jobs:
   # comunes tendran que ser repetidos en otros jobs
   deploy:
     name: Deploy project
+    # La palabra 'needs' configura que este job se ejecutara de forma secuencial una vez de completen
+    # con exito el/los jobs definidos en esta llave. Para definir varios se usa la sintaxis: [J1, J2]
+    # Cuando son varios, el job que usa needs se ejecutara hasta que todos los jobs de needs se completen
+    # con exito, si cualquiera de los jobs falla, este job no se ejecutar
+    needs: unit-test
     runs-on: ubuntu-latest
     steps:
       - name: Get code from repository
