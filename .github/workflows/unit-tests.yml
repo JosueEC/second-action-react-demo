@@ -1,0 +1,32 @@
+name: Unit Test Project
+
+on: push
+
+jobs:
+  unit-test:
+    name: Unit Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code from repository
+        # La palabra 'uses' se usa para ejecutar una action en lugar de un comando
+        # Para comandos de shell usamos 'run'
+        # Para usar la action se hace referencia a la misma a traves de su identificador
+        # este dato se puede ver en el detalle de la action en el marketplace de actions
+        # El arroba es para definir una version especifica que se desee usar
+        uses: actions/checkout@v3
+        # La palabra 'with' se puede usar en combinacion con 'uses' se usa para definir
+        # configuracion para el uso de la action. Estas configuraciones tambien se pueden
+        # ver en el detalle de la action en el marketplace
+        #*with:
+      - name: Install NodeJS
+        # NodeJS ya es un programa preinstalado en el runner de ubunut-latest, por lo que
+        # este paso no es necesario, sin embargo, se esta agregando para practicar el uso
+        # de actions en tareas comunes y repetiivas como la instalcion de NodeJS
+        uses: actions/setup-node@v3
+        # Para el caso de esta action, esta si requiere una configuracion definida con 'with'
+        with:
+          node_version: 18
+      - name: Install project dependencies
+        run: npm ci
+      - name: Run unit tests
+        run: npm test
