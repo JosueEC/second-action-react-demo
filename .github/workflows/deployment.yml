@@ -1,4 +1,4 @@
-name: Unit Test Project
+name: Deploy Project
 
 on: push
 
@@ -30,3 +30,22 @@ jobs:
         run: npm ci
       - name: Run unit tests
         run: npm test
+  # Aqui puedes observar que cada Job tiene su propio runner, osea que cada Job esta aislado
+  # en su propia maquina separada de los demas jobs y sus ambientes. Es por eso que algunos steps
+  # comunes tendran que ser repetidos en otros jobs
+  deploy:
+    name: Deploy project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code from repository
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install project dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
+      - name: Deploy to host
+        run: echo "Deploying..."
