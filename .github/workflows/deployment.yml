@@ -1,6 +1,9 @@
 name: Deploy Project
 
-on: push
+# Podemos suscribir los workflows a diferentes triggers/eventos. Por ejemplo, aqui
+# el workflow se ejecuta en cada evento push al repositorio ademas podemos ejecutarlo
+# de forma manual con workflow_dispatch, para ello usamos la sintaxis []
+on: [push, workflow_dispatch]
 
 jobs:
   unit-test:

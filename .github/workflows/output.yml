@@ -1,0 +1,16 @@
+name: Output information
+
+on: workflow_dispatch
+
+jobs:
+  info:
+    name: info
+    runs-on: ubuntu-latest
+    # Las actions de github manejan un contexto, podemos acceder a los valores
+    # de este contexto a traves de la siguiente sintaxis, con la cual indicamos
+    # que deseamos acceder a cierta metadata del contexto de la action
+
+    # toJson tambien es una funcion que proporciona el contexto de github
+    steps:
+      - name: Output GitHub context
+        run: echo "${{ toJson(github) }}"
